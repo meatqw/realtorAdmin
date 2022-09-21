@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>API</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container pt-3" id="app" v-cloak>
+      <h1>api</h1>
+
+      <form class="form-inline mb-3" @submit.prevent="createNews">
+        <div class="form-group mr-5">
+          <label for="tilte" class="mr-3">Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            v-model="form.title"
+          />
+        </div>
+        <div class="form-group mr-5">
+          <label for="description" class="mr-3">Descriprion</label>
+          <input
+            type="text"
+            class="form-control"
+            id="description"
+            v-model="form.description"
+          />
+        </div>
+        <div class="form-group mr-5">
+          <label for="img" class="mr-3">Img</label>
+          <input
+            type="text"
+            class="form-control"
+            id="img"
+            v-model="form.img"
+          />
+        </div>
+        <div class="form-group mr-5">
+          <label for="img" class="mr-3">date</label>
+          <input
+            type="text"
+            class="form-control"
+            id="date"
+            v-model="form.date"
+          />
+        </div>
+        <button class="btn btn-primary" type="submit" :disabled="!canCreate">Create</button>
+      </form>
+      <div v-if="loading">
+          <loader />
+      </div>
+      <div v-else-if="news.length">
+        <div class="card mb-3" v-for="item in news">
+          <div class="card-body">
+            <h5 class="card-title" :style="{color: item.marked ? 'red': 'black'}">{{ item.title }}</h5>
+            <p class="card-text">{{ item.title }}</p>
+            <button class="btn btn-primary" @click="markNews(item.id)" :disabled="item.marked">Mark</button>
+            <button class="btn btn-danger" @click="removeNews(item.id)">Delete</button>
+          </div>
+        </div>
+      </div>
+      <p v-else>
+          No data
+      </p>
+    </div>
+
+    <script type="module" src="frontend.js"></script>
+  </body>
+</html>
